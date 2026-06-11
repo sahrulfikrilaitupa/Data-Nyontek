@@ -10,7 +10,6 @@
     <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden p-6">
         <div class="flex justify-between items-center mb-4">
             <h1 class="text-2xl font-bold text-gray-800">Data Nyontek</h1>
-            <!-- Tombol Download CSV -->
             <button id="download-btn" class="hidden bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded text-sm transition-colors">
                 Download CSV
             </button>
@@ -27,27 +26,34 @@
 
     <script>
         const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQxdSMn2uLLuGnQSIbrzaLOx0g9sg8_qKOUYkzFgix09MPzcHqqD9e2fuEPvEw46L6cVOwXZbxsvEMA/pub?output=csv';
+        let lastData = ""; // Variabel untuk menyimpan data terakhir
 
         async function fetchData() {
             try {
                 const response = await fetch(csvUrl);
                 const data = await response.text();
-                const rows = data.split('\n').map(row => row.split(','));
                 
+                // Jika data sama dengan data sebelumnya, hentikan fungsi agar tidak kedip
+                if (data === lastData) return;
+                
+                lastData = data;
+                const rows = data.split('\n').map(row => row.split(','));
                 const body = rows.slice(1);
 
-                // Render Header
+                // Render Header (hanya sekali)
                 const thead = document.getElementById('table-head');
-                const customHeaders = ['TANGGAL', 'WAKTU', 'NAMA SISWA', 'KELAS', 'NOTIFIKASI'];
-                thead.innerHTML = `<tr>${customHeaders.map(h => `<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">${h}</th>`).join('')}</tr>`;
+                if (thead.innerHTML === "") {
+                    const customHeaders = ['TANGGAL', 'WAKTU', 'NAMA SISWA', 'KELAS', 'NOTIFIKASI'];
+                    thead.innerHTML = `<tr>${customHeaders.map(h => `<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">${h}</th>`).join('')}</tr>`;
+                }
 
-                // Render Body
+                // Render Body hanya jika data berubah
                 const tbody = document.getElementById('table-body');
                 tbody.innerHTML = body.map(row => 
                     `<tr>${row.map(cell => `<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${cell}</td>`).join('')}</tr>`
                 ).join('');
 
-                // Fungsi Download CSV
+                // Konfigurasi Download
                 const dlBtn = document.getElementById('download-btn');
                 dlBtn.classList.remove('hidden');
                 dlBtn.onclick = () => {
@@ -65,15 +71,12 @@
                 document.getElementById('loader').classList.add('hidden');
                 document.getElementById('table-container').classList.remove('hidden');
             } catch (error) {
-                document.getElementById('loader').innerText = "Gagal memuat data. Pastikan link sudah dipublish sebagai CSV.";
+                console.error("Error fetching data:", error);
             }
         }
 
-        // Panggil fungsi pertama kali
         fetchData();
-        
-        // Atur agar otomatis memanggil fungsi setiap 3000ms (3 detik)
-        setInterval(fetchData, 3000);
+        setInterval(fetchData, 5000);
     </script>
 </body>
 </html>
