@@ -3,93 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tampilan Data Nyontek</title>
+    <title>Tampilan Data Spreadsheet</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 p-6">
     <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md p-6 flex flex-col h-[85vh]">
         <div class="flex justify-between items-center mb-4 shrink-0">
-            <h1 class="text-2xl font-bold text-gray-800">Data Siswa Mencurigakan</h1>
-            <button id="download-btn" class="hidden bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded text-sm transition-colors">
+            <h1 class="text-2xl font-bold text-gray-800">Data Siswa</h1>
+            <button id="download-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded text-sm transition-colors">
                 Download CSV
             </button>
         </div>
         
-        <div id="loader" class="text-blue-600 font-semibold">Memuat data...</div>
+        <div id="loader" class="text-blue-600 font-semibold mb-4">Memuat data dari spreadsheet...</div>
         
-        <!-- Kontainer tabel dengan scroll otomatis -->
-        <div id="table-container" class="overflow-x-auto flex-grow hidden border border-gray-200 rounded-lg">
+        <div id="table-container" class="overflow-x-auto flex-grow border border-gray-200 rounded-lg hidden">
             <table class="min-w-full bg-white" id="data-table">
-                <thead class="bg-gray-50 sticky top-0" id="table-head"></thead>
+                <thead class="bg-gray-50 sticky top-0" id="table-head">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">TANGGAL</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">WAKTU</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">NAMA SISWA</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">KELAS</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">NOTIFIKASI</th>
+                    </tr>
+                </thead>
                 <tbody class="divide-y divide-gray-200" id="table-body"></tbody>
             </table>
         </div>
         
-        <!-- Tombol Refresh diposisikan tetap di luar overflow container -->
         <div class="mt-4 pt-2 shrink-0 flex justify-center">
             <button id="refresh-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded transition-colors w-full sm:w-auto">
-                Refresh Data
+                Refresh Halaman
             </button>
         </div>
     </div>
 
     <script>
         const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQxdSMn2uLLuGnQSIbrzaLOx0g9sg8_qKOUYkzFgix09MPzcHqqD9e2fuEPvEw46L6cVOwXZbxsvEMA/pub?output=csv';
-        let lastData = ""; 
+        let fetchedData = "";
 
-        async function fetchData() {
+        async function loadData() {
             try {
                 const response = await fetch(csvUrl);
                 const data = await response.text();
                 
-                if (data === lastData) return;
-                
-                lastData = data;
-                const rows = data.split('\n').map(row => row.split(','));
-                const body = rows.slice(1);
+                // Hanya update jika data berubah
+                if (data !== fetchedData) {
+                    fetchedData = data;
+                    const rows = data.split('\n').map(row => row.split(','));
+                    const body = rows.slice(1); 
 
-                const thead = document.getElementById('table-head');
-                if (thead.innerHTML === "") {
-                    const customHeaders = ['TANGGAL', 'WAKTU', 'NAMA SISWA', 'KELAS', 'NOTIFIKASI'];
-                    thead.innerHTML = `<tr>${customHeaders.map(h => `<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">${h}</th>`).join('')}</tr>`;
+                    const tbody = document.getElementById('table-body');
+                    tbody.innerHTML = body.filter(row => row.length > 1).map(row => 
+                        `<tr>${row.map(cell => `<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${cell}</td>`).join('')}</tr>`
+                    ).join('');
+
+                    document.getElementById('loader').classList.add('hidden');
+                    document.getElementById('table-container').classList.remove('hidden');
                 }
-
-                const tbody = document.getElementById('table-body');
-                tbody.innerHTML = body.map(row => 
-                    `<tr>${row.map(cell => `<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${cell}</td>`).join('')}</tr>`
-                ).join('');
-
-                const dlBtn = document.getElementById('download-btn');
-                dlBtn.classList.remove('hidden');
-                dlBtn.onclick = () => {
-                    const blob = new Blob([data], { type: 'text/csv' });
-                    const url = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'data_siswa.csv';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    window.URL.revokeObjectURL(url);
-                };
-
-                document.getElementById('loader').classList.add('hidden');
-                document.getElementById('table-container').classList.remove('hidden');
-            } catch (error) {
-                console.error("Error fetching data:", error);
+            } catch (err) {
+                console.error("Gagal memuat data:", err);
             }
         }
 
-        document.getElementById('refresh-btn').addEventListener('click', fetchData);
+        document.getElementById('download-btn').onclick = () => {
+            if (!fetchedData) return;
+            const blob = new Blob([fetchedData], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'data_siswa.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        };
 
-        async function startRealTime() {
-            while (true) {
-                await fetchData();
-                await new Promise(resolve => setTimeout(resolve, 500));
-            }
-        }
+        document.getElementById('refresh-btn').addEventListener('click', () => {
+            window.location.reload();
+        });
 
-        startRealTime();
+        // Panggil data pertama kali
+        loadData();
+        
+        // Update otomatis setiap 3 detik (3000 milidetik)
+        setInterval(loadData, 3000);
     </script>
 </body>
 </html>
