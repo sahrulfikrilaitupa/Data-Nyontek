@@ -69,7 +69,11 @@
             }
         }
 
-        window.onload = fetchData;
+        // Panggil fungsi pertama kali
+        fetchData();
+        
+        // Atur agar otomatis memanggil fungsi setiap 5000ms (5 detik)
+        setInterval(fetchData, 5000);
     </script>
 </body>
 </html>
