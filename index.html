@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tampilan Data Nyontek</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden p-6">
+        <div class="flex justify-between items-center mb-4">
+            <h1 class="text-2xl font-bold text-gray-800">Data Nyontek</h1>
+            <!-- Tombol Download CSV -->
+            <button id="download-btn" class="hidden bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded text-sm transition-colors">
+                Download CSV
+            </button>
+        </div>
+        
+        <div id="loader" class="text-blue-600 font-semibold">Memuat data...</div>
+        <div id="table-container" class="overflow-x-auto hidden">
+            <table class="min-w-full bg-white border border-gray-200" id="data-table">
+                <thead class="bg-gray-50" id="table-head"></thead>
+                <tbody class="divide-y divide-gray-200" id="table-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQxdSMn2uLLuGnQSIbrzaLOx0g9sg8_qKOUYkzFgix09MPzcHqqD9e2fuEPvEw46L6cVOwXZbxsvEMA/pub?output=csv';
+
+        async function fetchData() {
+            try {
+                const response = await fetch(csvUrl);
+                const data = await response.text();
+                const rows = data.split('\n').map(row => row.split(','));
+                
+                const body = rows.slice(1);
+
+                // Render Header
+                const thead = document.getElementById('table-head');
+                const customHeaders = ['TANGGAL', 'WAKTU', 'NAMA SISWA', 'KELAS', 'NOTIFIKASI'];
+                thead.innerHTML = `<tr>${customHeaders.map(h => `<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">${h}</th>`).join('')}</tr>`;
+
+                // Render Body
+                const tbody = document.getElementById('table-body');
+                tbody.innerHTML = body.map(row => 
+                    `<tr>${row.map(cell => `<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${cell}</td>`).join('')}</tr>`
+                ).join('');
+
+                // Fungsi Download CSV
+                const dlBtn = document.getElementById('download-btn');
+                dlBtn.classList.remove('hidden');
+                dlBtn.onclick = () => {
+                    const blob = new Blob([data], { type: 'text/csv' });
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'data_siswa.csv';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                };
+
+                document.getElementById('loader').classList.add('hidden');
+                document.getElementById('table-container').classList.remove('hidden');
+            } catch (error) {
+                document.getElementById('loader').innerText = "Gagal memuat data. Pastikan link sudah dipublish sebagai CSV.";
+            }
+        }
+
+        window.onload = fetchData;
+    </script>
+</body>
+</html>
