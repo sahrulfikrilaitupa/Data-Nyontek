@@ -75,8 +75,16 @@
             }
         }
 
-        fetchData();
-        setInterval(fetchData, 2000);
+        // Jalankan fungsi fetchData secara berulang dengan jeda minimal (langsung dipanggil setelah selesai)
+        async function startRealTime() {
+            while (true) {
+                await fetchData();
+                // Menunggu 500ms agar browser tidak terlalu terbebani, namun terasa real-time
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+        }
+
+        startRealTime();
     </script>
 </body>
 </html>
