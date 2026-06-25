@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -88,6 +88,87 @@
         
         // Update otomatis setiap 3 detik (3000 milidetik)
         setInterval(loadData, 3000);
+    </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Tabel Spreadsheet</title>
+    <!-- Menggunakan Tailwind CSS untuk desain modern dan responsif -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Animasi loading sederhana */
+        .loader { border-top-color: #3498db; animation: spinner 1.5s linear infinite; }
+        @keyframes spinner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">Hasil Data Spreadsheet</h1>
+        
+        <!-- Kontainer Tabel -->
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <div id="loader" class="p-10 flex justify-center">
+                <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12"></div>
+            </div>
+            <div id="tableContainer" class="overflow-x-auto hidden">
+                <table class="w-full text-left border-collapse" id="dataTable">
+                    <thead>
+                        <tr class="bg-gray-100 border-b" id="tableHead"></tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // GANTI URL INI dengan Web App URL dari deployment Google Apps Script Anda
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwVmjZZxbOA-vnukBTaRyx-hR6ocWtXTO60vqNB8zT0qw-FrICV_R5hA75hdNKDGkwN8Q/exec';
+
+        async function fetchData() {
+            try {
+                const response = await fetch(SCRIPT_URL);
+                const data = await response.json();
+                
+                if (data.length > 0) {
+                    renderTable(data);
+                }
+            } catch (error) {
+                console.error("Gagal mengambil data:", error);
+                document.getElementById('loader').innerHTML = '<p class="text-red-500">Gagal memuat data. Periksa koneksi atau URL Apps Script Anda.</p>';
+            }
+        }
+
+        function renderTable(data) {
+            const head = document.getElementById('tableHead');
+            const body = document.getElementById('tableBody');
+            
+            // Render Header (Baris pertama)
+            data[0].forEach(header => {
+                head.innerHTML += `<th class="py-3 px-4 font-semibold text-gray-700">${header}</th>`;
+            });
+
+            // Render Body (Data baris berikutnya)
+            for (let i = 1; i < data.length; i++) {
+                let rowHtml = '<tr class="border-b hover:bg-gray-50">';
+                data[i].forEach(cell => {
+                    rowHtml += `<td class="py-3 px-4 text-gray-600">${cell}</td>`;
+                });
+                rowHtml += '</tr>';
+                body.innerHTML += rowHtml;
+            }
+
+            document.getElementById('loader').classList.add('hidden');
+            document.getElementById('tableContainer').classList.remove('hidden');
+        }
+
+        window.onload = fetchData;
     </script>
 </body>
 </html>
