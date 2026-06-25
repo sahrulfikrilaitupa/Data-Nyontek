@@ -109,7 +109,7 @@
 <body class="bg-gray-50 min-h-screen p-4 md:p-8">
 
     <div class="max-w-4xl mx-auto">
-        <h1 class="text-2xl font-bold text-gray-800 mb-6">Hasil Data Spreadsheet</h1>
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">Hasil Data Spreadsheet (Auto-Update)</h1>
         
         <!-- Kontainer Tabel -->
         <div class="bg-white shadow-md rounded-lg overflow-hidden">
@@ -128,7 +128,6 @@
     </div>
 
     <script>
-        // GANTI URL INI dengan Web App URL dari deployment Google Apps Script Anda
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwVmjZZxbOA-vnukBTaRyx-hR6ocWtXTO60vqNB8zT0qw-FrICV_R5hA75hdNKDGkwN8Q/exec';
 
         async function fetchData() {
@@ -141,7 +140,6 @@
                 }
             } catch (error) {
                 console.error("Gagal mengambil data:", error);
-                document.getElementById('loader').innerHTML = '<p class="text-red-500">Gagal memuat data. Periksa koneksi atau URL Apps Script Anda.</p>';
             }
         }
 
@@ -149,12 +147,16 @@
             const head = document.getElementById('tableHead');
             const body = document.getElementById('tableBody');
             
-            // Render Header (Baris pertama)
+            // Bersihkan isi tabel sebelum render ulang
+            head.innerHTML = '';
+            body.innerHTML = '';
+            
+            // Render Header
             data[0].forEach(header => {
                 head.innerHTML += `<th class="py-3 px-4 font-semibold text-gray-700">${header}</th>`;
             });
 
-            // Render Body (Data baris berikutnya)
+            // Render Body
             for (let i = 1; i < data.length; i++) {
                 let rowHtml = '<tr class="border-b hover:bg-gray-50">';
                 data[i].forEach(cell => {
@@ -168,7 +170,11 @@
             document.getElementById('tableContainer').classList.remove('hidden');
         }
 
-        window.onload = fetchData;
+        // Jalankan saat pertama kali dimuat
+        fetchData();
+
+        // Update data otomatis setiap 10 detik (10000 milidetik)
+        setInterval(fetchData, 10000);
     </script>
 </body>
 </html>
