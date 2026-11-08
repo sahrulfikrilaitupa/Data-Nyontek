@@ -10,7 +10,9 @@
     <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
     <link rel="shortcut icon" href="matsanesa.png" type="image/x-icon">
 
     <style>
@@ -25,7 +27,7 @@
         /* Latar Belakang Gradasi Hijau Toska Gelap Modern & Pola Micro-Grid */
         body {
             background-color: #031314;
-            background-image: 
+            background-image:
                 radial-gradient(ellipse 90% 55% at 50% -10%, rgba(20, 184, 166, 0.28) 0%, transparent 70%),
                 radial-gradient(circle at 10% 85%, rgba(13, 148, 136, 0.16) 0%, transparent 50%),
                 radial-gradient(circle at 90% 45%, rgba(6, 182, 212, 0.14) 0%, transparent 50%),
@@ -85,8 +87,13 @@
         }
 
         @keyframes spinner {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         /* Custom Scrollbar */
@@ -94,13 +101,16 @@
             width: 7px;
             height: 7px;
         }
+
         ::-webkit-scrollbar-track {
             background: #031314;
         }
+
         ::-webkit-scrollbar-thumb {
             background: #115e59;
             border-radius: 9999px;
         }
+
         ::-webkit-scrollbar-thumb:hover {
             background: #14b8a6;
         }
@@ -109,10 +119,22 @@
         .pulse-toska {
             animation: pulse-ring 2s infinite ease-in-out;
         }
+
         @keyframes pulse-ring {
-            0% { transform: scale(0.9); opacity: 0.9; }
-            50% { transform: scale(1.15); opacity: 0.4; }
-            100% { transform: scale(0.9); opacity: 0.9; }
+            0% {
+                transform: scale(0.9);
+                opacity: 0.9;
+            }
+
+            50% {
+                transform: scale(1.15);
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: scale(0.9);
+                opacity: 0.9;
+            }
         }
     </style>
 </head>
@@ -122,7 +144,8 @@
     <!-- Toast Notification (Floating Top-Right) -->
     <div id="toast"
         class="fixed top-5 right-5 z-50 bg-[#062629]/95 border border-teal-400/40 text-teal-100 px-5 py-3.5 rounded-2xl shadow-2xl backdrop-blur-xl opacity-0 -translate-y-5 transition-all duration-300 hidden flex items-center gap-3.5 max-w-md">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500/25 to-cyan-500/20 border border-teal-400/40 flex items-center justify-center text-lg shrink-0 shadow-[0_0_12px_rgba(45,212,191,0.3)]">
+        <div
+            class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500/25 to-cyan-500/20 border border-teal-400/40 flex items-center justify-center text-lg shrink-0 shadow-[0_0_12px_rgba(45,212,191,0.3)]">
             🔔
         </div>
         <div>
@@ -136,11 +159,18 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <!-- Brand / Logo -->
             <div class="flex items-center gap-3.5">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-400 via-teal-600 to-cyan-700 p-0.5 shadow-[0_0_20px_rgba(20,184,166,0.4)] shrink-0">
+                <div
+                    class="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-400 via-teal-600 to-cyan-700 p-0.5 shadow-[0_0_20px_rgba(20,184,166,0.4)] shrink-0">
                     <div class="w-full h-full rounded-[14px] bg-[#041c1e] flex items-center justify-center">
                         <div class="w-6 h-6 text-teal-300">
                             <img src="matsanesa.png" alt="">
                         </div>
+
+                        <!-- <svg class="w-6 h-6 text-teal-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            <path d="m9 12 2 2 4-4"></path>
+                        </svg> -->
                     </div>
                 </div>
                 <div>
@@ -148,25 +178,31 @@
                         <h1 class="text-lg md:text-xl font-extrabold tracking-tight text-white">
                             Anti-Cheat Monitor
                         </h1>
-                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-teal-500/20 text-teal-300 border border-teal-400/30">
+                        <span
+                            class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-teal-500/20 text-teal-300 border border-teal-400/30">
                             E-CBT
                         </span>
                     </div>
                     <p class="text-xs text-teal-300/80 font-medium">
-                        MTsN 1 Maluku Tengah <span class="text-teal-700 mx-1">&bull;</span> Sistem Monitoring Terintegrasi
+                        MTsN 1 Maluku Tengah <span class="text-teal-700 mx-1">&bull;</span> Sistem Monitoring
+                        Terintegrasi
                     </p>
                 </div>
             </div>
 
             <!-- Right Status Indicator -->
             <div class="flex items-center gap-3">
-                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#052427]/80 border border-teal-500/30 text-xs font-semibold text-teal-200 shadow-inner">
+                <div
+                    class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#052427]/80 border border-teal-500/30 text-xs font-semibold text-teal-200 shadow-inner">
                     <span class="w-2.5 h-2.5 rounded-full bg-teal-400 pulse-toska shadow-[0_0_10px_#2dd4bf]"></span>
                     <span id="liveStatusText">Auto-Update Aktif</span>
                 </div>
 
-                <button onclick="fetchData()" class="p-2 rounded-xl bg-[#062629]/70 hover:bg-teal-900/40 border border-teal-800/60 text-teal-300 hover:text-white transition-all" title="Segarkan Data">
-                    <svg id="refreshSpinIcon" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <button onclick="fetchData()"
+                    class="p-2 rounded-xl bg-[#062629]/70 hover:bg-teal-900/40 border border-teal-800/60 text-teal-300 hover:text-white transition-all"
+                    title="Segarkan Data">
+                    <svg id="refreshSpinIcon" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
                         <polyline points="23 4 23 10 17 10"></polyline>
                         <polyline points="1 20 1 14 7 14"></polyline>
                         <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
@@ -182,11 +218,14 @@
         <!-- Banner / Hero Summary Card -->
         <div class="card-toska p-6 sm:p-7 relative overflow-hidden">
             <!-- Subtle background ambient gradient blob -->
-            <div class="absolute -right-16 -top-16 w-64 h-64 bg-gradient-to-br from-teal-500/20 via-cyan-500/10 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+            <div
+                class="absolute -right-16 -top-16 w-64 h-64 bg-gradient-to-br from-teal-500/20 via-cyan-500/10 to-transparent rounded-full blur-3xl pointer-events-none">
+            </div>
 
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
                 <div>
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-teal-500/10 border border-teal-500/30 text-xs font-bold text-teal-300 uppercase tracking-wider mb-2">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-teal-500/10 border border-teal-500/30 text-xs font-bold text-teal-300 uppercase tracking-wider mb-2">
                         <span class="w-2 h-2 rounded-full bg-teal-400"></span>
                         Anti-Cheat Real-Time Detector
                     </div>
@@ -194,14 +233,17 @@
                         Hasil Data Siswa <span class="text-gradient-toska">Mencurigakan</span>
                     </h2>
                     <p class="text-xs sm:text-sm text-teal-200/70 mt-1 max-w-xl">
-                        Merekam secara instan aktivitas peserta ujian yang berpindah tab atau meninggalkan aplikasi ujian selama sesi berlangsung.
+                        Merekam secara instan aktivitas peserta ujian yang berpindah tab atau meninggalkan aplikasi
+                        ujian selama sesi berlangsung.
                     </p>
                 </div>
 
                 <!-- Action Button: Download CSV -->
                 <div class="flex items-center gap-3">
-                    <button id="download-btn" onclick="exportCSV()" class="btn-gradient-toska text-slate-950 font-extrabold text-xs sm:text-sm px-5 py-2.5 rounded-xl flex items-center gap-2 shrink-0">
-                        <svg class="w-4 h-4 text-slate-950" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <button id="download-btn" onclick="exportCSV()"
+                        class="btn-gradient-toska text-slate-950 font-extrabold text-xs sm:text-sm px-5 py-2.5 rounded-xl flex items-center gap-2 shrink-0">
+                        <svg class="w-4 h-4 text-slate-950" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                             <polyline points="7 10 12 15 17 10"></polyline>
                             <line x1="12" y1="15" x2="12" y2="3"></line>
@@ -214,7 +256,8 @@
             <!-- 3 Mini Stats -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6 pt-6 border-t border-teal-900/40">
                 <div class="flex items-center gap-3.5">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500/20 to-teal-900/30 border border-teal-500/30 flex items-center justify-center text-teal-300 font-bold">
+                    <div
+                        class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500/20 to-teal-900/30 border border-teal-500/30 flex items-center justify-center text-teal-300 font-bold">
                         📊
                     </div>
                     <div>
@@ -224,7 +267,8 @@
                 </div>
 
                 <div class="flex items-center gap-3.5">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500/20 to-teal-900/30 border border-cyan-500/30 flex items-center justify-center text-cyan-300 font-bold">
+                    <div
+                        class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500/20 to-teal-900/30 border border-cyan-500/30 flex items-center justify-center text-cyan-300 font-bold">
                         👥
                     </div>
                     <div>
@@ -234,7 +278,8 @@
                 </div>
 
                 <div class="flex items-center gap-3.5">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-900/30 border border-emerald-500/30 flex items-center justify-center text-emerald-300 font-bold">
+                    <div
+                        class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-900/30 border border-emerald-500/30 flex items-center justify-center text-emerald-300 font-bold">
                         ⏱️
                     </div>
                     <div>
@@ -254,16 +299,12 @@
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                     </svg>
                 </div>
-                <input 
-                    type="text" 
-                    id="searchInput" 
-                    oninput="filterRows()"
-                    placeholder="Cari nama siswa atau kelas..." 
-                    class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#041a1d]/90 border border-teal-900/70 text-white placeholder-teal-600/70 text-sm focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400 transition-colors"
-                >
+                <input type="text" id="searchInput" oninput="filterRows()" placeholder="Cari nama siswa atau kelas..."
+                    class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#041a1d]/90 border border-teal-900/70 text-white placeholder-teal-600/70 text-sm focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400 transition-colors">
             </div>
 
-            <div class="flex items-center gap-2.5 text-xs text-teal-300/70 font-mono self-end sm:self-auto" id="lastUpdatedBadge">
+            <div class="flex items-center gap-2.5 text-xs text-teal-300/70 font-mono self-end sm:self-auto"
+                id="lastUpdatedBadge">
                 <span>Sinkronisasi otomatis aktif</span>
             </div>
         </div>
@@ -282,13 +323,12 @@
             <div id="tableContainer" class="overflow-x-auto hidden">
                 <table class="w-full text-left border-collapse" id="dataTable">
                     <thead>
-                        <tr class="bg-gradient-to-r from-[#042427] via-[#083338] to-[#042427] border-b border-teal-800/60 text-teal-200 text-xs font-bold uppercase tracking-wider">
-                            <th class="py-4 px-4 sm:px-6 w-12 text-center text-teal-400 font-mono">#</th>
+                        <tr
+                            class="bg-gradient-to-r from-[#042427] via-[#083338] to-[#042427] border-b border-teal-800/60 text-teal-200 text-xs font-bold uppercase tracking-wider">
                             <th class="py-4 px-4 sm:px-6">NAMA SISWA</th>
-                            <th class="py-4 px-4 sm:px-6">KELAS</th>
-                            <th class="py-4 px-4 sm:px-6 text-center">PELANGGARAN KE-</th>
+                            <th class="py-4 px-4 sm:px-6 w-28 sm:w-36">KELAS</th>
                             <th class="py-4 px-4 sm:px-6">KETERANGAN</th>
-                            <th class="py-4 px-4 sm:px-6">WAKTU</th>
+                            <th class="py-4 px-4 sm:px-6 w-40 sm:w-52">WAKTU</th>
                         </tr>
                         <tr id="tableHead" class="hidden"></tr>
                     </thead>
@@ -298,12 +338,14 @@
 
             <!-- Empty Search State -->
             <div id="emptySearch" class="hidden py-14 text-center text-teal-400/60">
-                <svg class="w-12 h-12 mx-auto mb-3 text-teal-600/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <svg class="w-12 h-12 mx-auto mb-3 text-teal-600/50" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.5">
                     <circle cx="12" cy="12" r="10"></circle>
                     <line x1="8" y1="12" x2="16" y2="12"></line>
                 </svg>
                 <p class="text-sm font-semibold text-teal-200">Tidak ada data yang sesuai</p>
-                <p class="text-xs text-teal-500/70 mt-1">Coba gunakan kata kunci pencarian nama atau kelas yang lain.</p>
+                <p class="text-xs text-teal-500/70 mt-1">Coba gunakan kata kunci pencarian nama atau kelas yang lain.
+                </p>
             </div>
         </div>
 
@@ -311,7 +353,8 @@
 
     <!-- Footer -->
     <footer class="mt-12 text-center text-xs text-teal-700/80 font-medium">
-        <p>&copy; 2026 MTsN 1 Maluku Tengah &mdash; E-CBT Anti-Cheat System <span class="mx-1 text-teal-900">&bull;</span> Dikembangkan untuk integritas ujian digital</p>
+        <p>&copy; 2026 MTsN 1 Maluku Tengah &mdash; E-CBT Anti-Cheat System <span
+                class="mx-1 text-teal-900">&bull;</span> Dikembangkan untuk integritas ujian digital</p>
     </footer>
 
     <!-- Script Sistem (Tetap Dipertahankan Sesuai Sistem Asli) -->
@@ -382,8 +425,8 @@
 
             const toast = document.getElementById('toast');
             toast.classList.remove('hidden');
-            setTimeout(() => { 
-                toast.classList.remove('opacity-0', '-translate-y-5'); 
+            setTimeout(() => {
+                toast.classList.remove('opacity-0', '-translate-y-5');
             }, 50);
 
             setTimeout(() => {
@@ -429,45 +472,19 @@
                 const row = data[i];
                 if (!Array.isArray(row) || row.length === 0) continue;
 
-                const no = (startIndex === 1) ? i : i + 1;
                 const nama = escapeHtml(row[0] || '-');
                 const kelas = escapeHtml(row[1] || '-');
-                
-                // Format badge pelanggaran
-                let pelanggaranVal = row[2];
-                let countNum = 1;
-                if (typeof pelanggaranVal === 'number') {
-                    countNum = pelanggaranVal;
-                } else if (pelanggaranVal) {
-                    const match = String(pelanggaranVal).match(/\d+/);
-                    if (match) countNum = parseInt(match[0], 10);
-                }
-
-                // Toska Gradient Badge Styling
-                let badgeClass = "bg-gradient-to-r from-teal-500/20 to-cyan-500/20 text-teal-300 border border-teal-400/40 shadow-[0_0_12px_rgba(45,212,191,0.25)]";
-                if (countNum >= 3) {
-                    badgeClass = "bg-gradient-to-r from-rose-500/25 to-pink-500/20 text-rose-300 border border-rose-400/40 shadow-[0_0_14px_rgba(244,63,94,0.3)]";
-                } else if (countNum === 2) {
-                    badgeClass = "bg-gradient-to-r from-amber-500/20 to-yellow-500/20 text-amber-300 border border-amber-400/40 shadow-[0_0_12px_rgba(245,158,11,0.25)]";
-                }
-
                 const keterangan = escapeHtml(row[3] || 'Meninggalkan tab/halaman ujian');
                 const waktu = escapeHtml(row[4] || '-');
 
                 let rowHtml = `
                     <tr class="hover:bg-[#072d31]/50 transition-colors border-b border-teal-950/70 table-data-row">
-                        <td class="py-3.5 px-4 sm:px-6 text-center text-xs font-mono text-teal-500/90 font-medium">${no}</td>
                         <td class="py-3.5 px-4 sm:px-6 font-bold text-white text-xs sm:text-sm tracking-wide uppercase">
                             ${nama}
                         </td>
                         <td class="py-3.5 px-4 sm:px-6 text-xs sm:text-sm">
                             <span class="inline-block px-2.5 py-0.5 rounded-lg bg-[#06282b] text-teal-200 border border-teal-700/50 font-semibold">
                                 ${kelas}
-                            </span>
-                        </td>
-                        <td class="py-3.5 px-4 sm:px-6 text-center">
-                            <span class="inline-flex items-center justify-center px-3 py-0.5 rounded-full text-xs font-mono font-bold ${badgeClass}">
-                                ${countNum}x
                             </span>
                         </td>
                         <td class="py-3.5 px-4 sm:px-6 text-xs text-teal-200/80">
@@ -517,19 +534,28 @@
             if (!globalRawData || globalRawData.length === 0) return;
 
             let csvContent = "data:text/csv;charset=utf-8,";
-            csvContent += "No,Nama Siswa,Kelas,Pelanggaran,Keterangan,Waktu\r\n";
+            csvContent += "No,Nama Siswa,Kelas,Keterangan,Waktu\r\n";
 
-            globalRawData.forEach((row, i) => {
+            let startIndex = 0;
+            if (globalRawData.length > 0 && Array.isArray(globalRawData[0])) {
+                const firstVal = String(globalRawData[0][0]).toLowerCase();
+                if (firstVal.includes('nama') || firstVal.includes('name')) {
+                    startIndex = 1;
+                }
+            }
+
+            for (let i = startIndex; i < globalRawData.length; i++) {
+                const row = globalRawData[i];
+                const no = (startIndex === 1) ? i : i + 1;
                 const line = [
-                    i + 1,
+                    no,
                     `"${String(row[0] || '').replace(/"/g, '""')}"`,
                     `"${String(row[1] || '').replace(/"/g, '""')}"`,
-                    `"${String(row[2] || '')}"`,
-                    `"${String(row[3] || '').replace(/"/g, '""')}"`,
+                    `"${String(row[3] || 'Meninggalkan tab/halaman ujian').replace(/"/g, '""')}"`,
                     `"${String(row[4] || '')}"`
                 ].join(',');
                 csvContent += line + "\r\n";
-            });
+            }
 
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
