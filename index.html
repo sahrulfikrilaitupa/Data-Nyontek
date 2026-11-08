@@ -326,9 +326,8 @@
                         <tr
                             class="bg-gradient-to-r from-[#042427] via-[#083338] to-[#042427] border-b border-teal-800/60 text-teal-200 text-xs font-bold uppercase tracking-wider">
                             <th class="py-4 px-4 sm:px-6">NAMA SISWA</th>
-                            <th class="py-4 px-4 sm:px-6 w-28 sm:w-36">KELAS</th>
+                            <th class="py-4 px-4 sm:px-6 w-32 sm:w-44">KELAS</th>
                             <th class="py-4 px-4 sm:px-6">KETERANGAN</th>
-                            <th class="py-4 px-4 sm:px-6 w-40 sm:w-52">WAKTU</th>
                         </tr>
                         <tr id="tableHead" class="hidden"></tr>
                     </thead>
@@ -475,7 +474,6 @@
                 const nama = escapeHtml(row[0] || '-');
                 const kelas = escapeHtml(row[1] || '-');
                 const keterangan = escapeHtml(row[3] || 'Meninggalkan tab/halaman ujian');
-                const waktu = escapeHtml(row[4] || '-');
 
                 let rowHtml = `
                     <tr class="hover:bg-[#072d31]/50 transition-colors border-b border-teal-950/70 table-data-row">
@@ -492,9 +490,6 @@
                                 <span class="w-1.5 h-1.5 rounded-full bg-teal-400"></span>
                                 ${keterangan}
                             </span>
-                        </td>
-                        <td class="py-3.5 px-4 sm:px-6 text-xs text-teal-300/90 font-mono">
-                            ${waktu}
                         </td>
                     </tr>
                 `;
@@ -534,7 +529,7 @@
             if (!globalRawData || globalRawData.length === 0) return;
 
             let csvContent = "data:text/csv;charset=utf-8,";
-            csvContent += "No,Nama Siswa,Kelas,Keterangan,Waktu\r\n";
+            csvContent += "No,Nama Siswa,Kelas,Keterangan\r\n";
 
             let startIndex = 0;
             if (globalRawData.length > 0 && Array.isArray(globalRawData[0])) {
@@ -551,8 +546,7 @@
                     no,
                     `"${String(row[0] || '').replace(/"/g, '""')}"`,
                     `"${String(row[1] || '').replace(/"/g, '""')}"`,
-                    `"${String(row[3] || 'Meninggalkan tab/halaman ujian').replace(/"/g, '""')}"`,
-                    `"${String(row[4] || '')}"`
+                    `"${String(row[3] || 'Meninggalkan tab/halaman ujian').replace(/"/g, '""')}"`
                 ].join(',');
                 csvContent += line + "\r\n";
             }
