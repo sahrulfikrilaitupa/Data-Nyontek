@@ -292,15 +292,36 @@
 
         <!-- Filter & Search Controls -->
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-            <div class="relative flex-1 sm:max-w-md">
-                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-teal-500">
-                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1 sm:max-w-xl">
+                <!-- Search Box -->
+                <div class="relative flex-1">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-teal-500">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </div>
+                    <input type="text" id="searchInput" oninput="filterRows()" placeholder="Cari nama siswa..."
+                        class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#041a1d]/90 border border-teal-900/70 text-white placeholder-teal-600/70 text-sm focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400 transition-colors">
                 </div>
-                <input type="text" id="searchInput" oninput="filterRows()" placeholder="Cari nama siswa atau kelas..."
-                    class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#041a1d]/90 border border-teal-900/70 text-white placeholder-teal-600/70 text-sm focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400 transition-colors">
+
+                <!-- Dropdown Filter Kelas -->
+                <div class="relative sm:w-48">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-teal-500">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                        </svg>
+                    </div>
+                    <select id="classFilter" onchange="filterRows()"
+                        class="w-full pl-10 pr-9 py-2.5 rounded-xl bg-[#041a1d]/90 border border-teal-900/70 text-teal-200 text-sm font-semibold focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400 transition-colors appearance-none cursor-pointer">
+                        <option value="" class="bg-[#041a1d] text-teal-200">Semua Kelas</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-teal-400">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
             </div>
 
             <div class="flex items-center gap-2.5 text-xs text-teal-300/70 font-mono self-end sm:self-auto"
@@ -388,6 +409,7 @@
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwVmjZZxbOA-vnukBTaRyx-hR6ocWtXTO60vqNB8zT0qw-FrICV_R5hA75hdNKDGkwN8Q/exec';
         let lastDataString = "";
         let globalRawData = [];
+        let lastClassListString = "";
 
         async function fetchData() {
             const icon = document.getElementById('refreshSpinIcon');
@@ -406,6 +428,7 @@
 
                     lastDataString = currentDataString;
                     globalRawData = data;
+                    updateClassDropdown(data);
                     renderTable(data);
                     updateStats(data);
                 }
@@ -415,6 +438,42 @@
                 if (badge) badge.textContent = "Offline / Error";
             } finally {
                 if (icon) setTimeout(() => icon.classList.remove('animate-spin'), 600);
+            }
+        }
+
+        // Update Pilihan Dropdown Kelas secara Dinamis
+        function updateClassDropdown(data) {
+            const classSelect = document.getElementById('classFilter');
+            if (!classSelect) return;
+
+            const currentVal = classSelect.value;
+            let startIndex = 0;
+            if (data.length > 0 && Array.isArray(data[0])) {
+                const firstVal = String(data[0][0]).toLowerCase();
+                if (firstVal.includes('nama') || firstVal.includes('name')) {
+                    startIndex = 1;
+                }
+            }
+
+            const classes = new Set();
+            for (let i = startIndex; i < data.length; i++) {
+                if (Array.isArray(data[i]) && data[i][1]) {
+                    const c = String(data[i][1]).trim();
+                    if (c && c !== '-') classes.add(c);
+                }
+            }
+
+            const sortedClasses = Array.from(classes).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+            const classListString = JSON.stringify(sortedClasses);
+
+            if (classListString !== lastClassListString) {
+                lastClassListString = classListString;
+                let optionsHtml = '<option value="" class="bg-[#041a1d] text-teal-200">Semua Kelas</option>';
+                sortedClasses.forEach(c => {
+                    const isSelected = (c === currentVal) ? 'selected' : '';
+                    optionsHtml += `<option value="${escapeHtml(c)}" ${isSelected} class="bg-[#041a1d] text-teal-200">Kelas ${escapeHtml(c)}</option>`;
+                });
+                classSelect.innerHTML = optionsHtml;
             }
         }
 
@@ -476,7 +535,7 @@
                 const keterangan = escapeHtml(row[3] || 'Meninggalkan tab/halaman ujian');
 
                 let rowHtml = `
-                    <tr class="hover:bg-[#072d31]/50 transition-colors border-b border-teal-950/70 table-data-row">
+                    <tr class="hover:bg-[#072d31]/50 transition-colors border-b border-teal-950/70 table-data-row" data-kelas="${kelas}">
                         <td class="py-3.5 px-4 sm:px-6 font-bold text-white text-xs sm:text-sm tracking-wide uppercase">
                             ${nama}
                         </td>
@@ -498,17 +557,24 @@
 
             document.getElementById('loader').classList.add('hidden');
             document.getElementById('tableContainer').classList.remove('hidden');
+            filterRows();
         }
 
-        // Live Filter Function
+        // Live Filter Function (Nama & Kelas)
         function filterRows() {
-            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            const query = (document.getElementById('searchInput')?.value || '').trim().toLowerCase();
+            const selectedClass = (document.getElementById('classFilter')?.value || '').trim().toLowerCase();
             const rows = document.querySelectorAll('.table-data-row');
             let visibleCount = 0;
 
             rows.forEach(row => {
                 const text = row.innerText.toLowerCase();
-                if (!query || text.includes(query)) {
+                const rowClass = (row.getAttribute('data-kelas') || '').trim().toLowerCase();
+
+                const matchQuery = !query || text.includes(query);
+                const matchClass = !selectedClass || rowClass === selectedClass;
+
+                if (matchQuery && matchClass) {
                     row.style.display = '';
                     visibleCount++;
                 } else {
@@ -517,16 +583,21 @@
             });
 
             const emptyState = document.getElementById('emptySearch');
-            if (visibleCount === 0 && rows.length > 0) {
-                emptyState.classList.remove('hidden');
-            } else {
-                emptyState.classList.add('hidden');
+            if (emptyState) {
+                if (visibleCount === 0 && rows.length > 0) {
+                    emptyState.classList.remove('hidden');
+                } else {
+                    emptyState.classList.add('hidden');
+                }
             }
         }
 
         // Export to CSV Function
         function exportCSV() {
             if (!globalRawData || globalRawData.length === 0) return;
+
+            const selectedClass = (document.getElementById('classFilter')?.value || '').trim().toLowerCase();
+            const query = (document.getElementById('searchInput')?.value || '').trim().toLowerCase();
 
             let csvContent = "data:text/csv;charset=utf-8,";
             csvContent += "No,Nama Siswa,Kelas,Keterangan\r\n";
@@ -539,16 +610,25 @@
                 }
             }
 
+            let exportNo = 1;
             for (let i = startIndex; i < globalRawData.length; i++) {
                 const row = globalRawData[i];
-                const no = (startIndex === 1) ? i : i + 1;
-                const line = [
-                    no,
-                    `"${String(row[0] || '').replace(/"/g, '""')}"`,
-                    `"${String(row[1] || '').replace(/"/g, '""')}"`,
-                    `"${String(row[3] || 'Meninggalkan tab/halaman ujian').replace(/"/g, '""')}"`
-                ].join(',');
-                csvContent += line + "\r\n";
+                const nama = String(row[0] || '');
+                const kelas = String(row[1] || '');
+                const keterangan = String(row[3] || 'Meninggalkan tab/halaman ujian');
+
+                const matchClass = !selectedClass || kelas.trim().toLowerCase() === selectedClass;
+                const matchQuery = !query || nama.toLowerCase().includes(query) || kelas.toLowerCase().includes(query);
+
+                if (matchClass && matchQuery) {
+                    const line = [
+                        exportNo++,
+                        `"${nama.replace(/"/g, '""')}"`,
+                        `"${kelas.replace(/"/g, '""')}"`,
+                        `"${keterangan.replace(/"/g, '""')}"`
+                    ].join(',');
+                    csvContent += line + "\r\n";
+                }
             }
 
             const encodedUri = encodeURI(csvContent);
