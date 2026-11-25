@@ -317,52 +317,47 @@
                         class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#041a1d]/90 border border-teal-900/70 text-white placeholder-teal-600/70 text-sm focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400 transition-colors">
                 </div>
 
-                <!-- Dropdown Filter Kelas (Statis) -->
+                <!-- Dropdown Filter Ruang (Statis: Ruang 1 - Ruang 28) -->
                 <div class="relative sm:w-52">
-                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-teal-500">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-cyan-500">
                         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                            <rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect>
                         </svg>
                     </div>
-                    <select id="classFilter" onchange="filterRows()"
-                        class="w-full pl-10 pr-9 py-2.5 rounded-xl bg-[#041a1d]/90 border border-teal-900/70 text-teal-200 text-sm font-semibold focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400 transition-colors appearance-none cursor-pointer">
-                        <option value="" class="bg-[#041a1d]">— Semua Kelas —</option>
-                        <optgroup label="Kelas VII" class="bg-[#041a1d] text-teal-400">
-                            <option value="VII-1" class="bg-[#041a1d] text-teal-200">VII-1</option>
-                            <option value="VII-2" class="bg-[#041a1d] text-teal-200">VII-2</option>
-                            <option value="VII-3" class="bg-[#041a1d] text-teal-200">VII-3</option>
-                            <option value="VII-4" class="bg-[#041a1d] text-teal-200">VII-4</option>
-                            <option value="VII-5" class="bg-[#041a1d] text-teal-200">VII-5</option>
-                            <option value="VII-6" class="bg-[#041a1d] text-teal-200">VII-6</option>
-                            <option value="VII-7" class="bg-[#041a1d] text-teal-200">VII-7</option>
-                            <option value="VII-8" class="bg-[#041a1d] text-teal-200">VII-8</option>
-                            <option value="VII-9" class="bg-[#041a1d] text-teal-200">VII-9</option>
-                        </optgroup>
-                        <optgroup label="Kelas VIII" class="bg-[#041a1d] text-teal-400">
-                            <option value="VIII-1" class="bg-[#041a1d] text-teal-200">VIII-1</option>
-                            <option value="VIII-2" class="bg-[#041a1d] text-teal-200">VIII-2</option>
-                            <option value="VIII-3" class="bg-[#041a1d] text-teal-200">VIII-3</option>
-                            <option value="VIII-4" class="bg-[#041a1d] text-teal-200">VIII-4</option>
-                            <option value="VIII-5" class="bg-[#041a1d] text-teal-200">VIII-5</option>
-                            <option value="VIII-6" class="bg-[#041a1d] text-teal-200">VIII-6</option>
-                            <option value="VIII-7" class="bg-[#041a1d] text-teal-200">VIII-7</option>
-                            <option value="VIII-8" class="bg-[#041a1d] text-teal-200">VIII-8</option>
-                            <option value="VIII-9" class="bg-[#041a1d] text-teal-200">VIII-9</option>
-                        </optgroup>
-                        <optgroup label="Kelas IX" class="bg-[#041a1d] text-teal-400">
-                            <option value="IX-1" class="bg-[#041a1d] text-teal-200">IX-1</option>
-                            <option value="IX-2" class="bg-[#041a1d] text-teal-200">IX-2</option>
-                            <option value="IX-3" class="bg-[#041a1d] text-teal-200">IX-3</option>
-                            <option value="IX-4" class="bg-[#041a1d] text-teal-200">IX-4</option>
-                            <option value="IX-5" class="bg-[#041a1d] text-teal-200">IX-5</option>
-                            <option value="IX-6" class="bg-[#041a1d] text-teal-200">IX-6</option>
-                            <option value="IX-7" class="bg-[#041a1d] text-teal-200">IX-7</option>
-                            <option value="IX-8" class="bg-[#041a1d] text-teal-200">IX-8</option>
-                            <option value="IX-9" class="bg-[#041a1d] text-teal-200">IX-9</option>
-                            <option value="IX-10" class="bg-[#041a1d] text-teal-200">IX-10</option>
-                        </optgroup>
+                    <select id="roomFilter" onchange="filterRows()"
+                        class="w-full pl-10 pr-9 py-2.5 rounded-xl bg-[#041a1d]/90 border border-teal-900/70 text-teal-200 text-sm font-semibold focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors appearance-none cursor-pointer">
+                        <option value="" class="bg-[#041a1d]">— Semua Ruang —</option>
+                        <option value="Ruang 1" class="bg-[#041a1d] text-cyan-200">Ruang 1</option>
+                        <option value="Ruang 2" class="bg-[#041a1d] text-cyan-200">Ruang 2</option>
+                        <option value="Ruang 3" class="bg-[#041a1d] text-cyan-200">Ruang 3</option>
+                        <option value="Ruang 4" class="bg-[#041a1d] text-cyan-200">Ruang 4</option>
+                        <option value="Ruang 5" class="bg-[#041a1d] text-cyan-200">Ruang 5</option>
+                        <option value="Ruang 6" class="bg-[#041a1d] text-cyan-200">Ruang 6</option>
+                        <option value="Ruang 7" class="bg-[#041a1d] text-cyan-200">Ruang 7</option>
+                        <option value="Ruang 8" class="bg-[#041a1d] text-cyan-200">Ruang 8</option>
+                        <option value="Ruang 9" class="bg-[#041a1d] text-cyan-200">Ruang 9</option>
+                        <option value="Ruang 10" class="bg-[#041a1d] text-cyan-200">Ruang 10</option>
+                        <option value="Ruang 11" class="bg-[#041a1d] text-cyan-200">Ruang 11</option>
+                        <option value="Ruang 12" class="bg-[#041a1d] text-cyan-200">Ruang 12</option>
+                        <option value="Ruang 13" class="bg-[#041a1d] text-cyan-200">Ruang 13</option>
+                        <option value="Ruang 14" class="bg-[#041a1d] text-cyan-200">Ruang 14</option>
+                        <option value="Ruang 15" class="bg-[#041a1d] text-cyan-200">Ruang 15</option>
+                        <option value="Ruang 16" class="bg-[#041a1d] text-cyan-200">Ruang 16</option>
+                        <option value="Ruang 17" class="bg-[#041a1d] text-cyan-200">Ruang 17</option>
+                        <option value="Ruang 18" class="bg-[#041a1d] text-cyan-200">Ruang 18</option>
+                        <option value="Ruang 19" class="bg-[#041a1d] text-cyan-200">Ruang 19</option>
+                        <option value="Ruang 20" class="bg-[#041a1d] text-cyan-200">Ruang 20</option>
+                        <option value="Ruang 21" class="bg-[#041a1d] text-cyan-200">Ruang 21</option>
+                        <option value="Ruang 22" class="bg-[#041a1d] text-cyan-200">Ruang 22</option>
+                        <option value="Ruang 23" class="bg-[#041a1d] text-cyan-200">Ruang 23</option>
+                        <option value="Ruang 24" class="bg-[#041a1d] text-cyan-200">Ruang 24</option>
+                        <option value="Ruang 25" class="bg-[#041a1d] text-cyan-200">Ruang 25</option>
+                        <option value="Ruang 26" class="bg-[#041a1d] text-cyan-200">Ruang 26</option>
+                        <option value="Ruang 27" class="bg-[#041a1d] text-cyan-200">Ruang 27</option>
+                        <option value="Ruang 28" class="bg-[#041a1d] text-cyan-200">Ruang 28</option>
                     </select>
-                    <div class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-teal-400">
+                    <div class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-cyan-400">
                         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="6 9 12 15 18 9"></polyline>
                         </svg>
@@ -617,7 +612,7 @@
                 const waktu     = escapeHtml(row[5] || row[4] || '-');
 
                 let rowHtml = `
-                    <tr class="hover:bg-[#072d31]/50 transition-colors border-b border-teal-950/70 table-data-row" data-kelas="${kelas}">
+                    <tr class="hover:bg-[#072d31]/50 transition-colors border-b border-teal-950/70 table-data-row" data-ruang="${ruang}">
                         <td class="py-3.5 px-4 sm:px-6 font-bold text-white text-xs sm:text-sm tracking-wide uppercase">
                             ${nama}
                         </td>
@@ -650,21 +645,21 @@
             filterRows();
         }
 
-        // Live Filter Function (Nama & Kelas)
+        // Live Filter Function (Nama & Ruang)
         function filterRows() {
             const query = (document.getElementById('searchInput')?.value || '').trim().toLowerCase();
-            const selectedClass = (document.getElementById('classFilter')?.value || '').trim().toLowerCase();
+            const selectedRoom = (document.getElementById('roomFilter')?.value || '').trim().toLowerCase();
             const rows = document.querySelectorAll('.table-data-row');
             let visibleCount = 0;
 
             rows.forEach(row => {
                 const text = row.innerText.toLowerCase();
-                const rowClass = (row.getAttribute('data-kelas') || '').trim().toLowerCase();
+                const rowRuang = (row.getAttribute('data-ruang') || '').trim().toLowerCase();
 
                 const matchQuery = !query || text.includes(query);
-                const matchClass = !selectedClass || rowClass === selectedClass;
+                const matchRoom  = !selectedRoom || rowRuang === selectedRoom;
 
-                if (matchQuery && matchClass) {
+                if (matchQuery && matchRoom) {
                     row.style.display = '';
                     visibleCount++;
                 } else {
@@ -674,28 +669,28 @@
 
             const emptyState = document.getElementById('emptySearch');
             const emptyTitle = document.getElementById('emptyTitle');
-            const emptyDesc = document.getElementById('emptyDesc');
+            const emptyDesc  = document.getElementById('emptyDesc');
 
             if (emptyState) {
                 if (rows.length === 0) {
-                    // Benar-benar tidak ada data nyontek sama sekali
                     emptyState.classList.remove('hidden');
                     if (emptyTitle) emptyTitle.textContent = "Belum Ada Data Pelanggaran";
-                    if (emptyDesc) emptyDesc.textContent = selectedClass
-                        ? `Tidak ada data pelanggaran untuk kelas ${selectedClass.toUpperCase()}.`
+                    if (emptyDesc)  emptyDesc.textContent  = selectedRoom
+                        ? `Tidak ada data pelanggaran untuk ${selectedRoom}.`
                         : "Semua peserta ujian tertib atau data telah direset.";
                 } else if (visibleCount === 0) {
-                    // Ada data, tapi tidak cocok dengan filter / kelas yang dipilih
                     emptyState.classList.remove('hidden');
                     if (emptyTitle) emptyTitle.textContent = "Tidak Ada Data yang Sesuai";
-                    if (emptyDesc) emptyDesc.textContent = selectedClass
-                        ? `Tidak ada data pelanggaran untuk kelas ${selectedClass.toUpperCase()}.`
-                        : "Coba gunakan kata kunci pencarian nama atau kelas yang lain.";
+                    if (emptyDesc)  emptyDesc.textContent  = selectedRoom
+                        ? `Tidak ada data pelanggaran untuk ${selectedRoom}.`
+                        : "Coba gunakan kata kunci pencarian nama atau ruang yang lain.";
                 } else {
                     emptyState.classList.add('hidden');
                 }
             }
         }
+
+        // (Fungsi updateRoomDropdown tidak diperlukan karena dropdown sudah statis Ruang 1-28)
 
         // Export to CSV Function
         function exportCSV() {
@@ -704,7 +699,7 @@
                 return;
             }
 
-            const selectedClass = (document.getElementById('classFilter')?.value || '').trim().toLowerCase();
+            const selectedRoom = (document.getElementById('roomFilter')?.value || '').trim().toLowerCase();
             const query = (document.getElementById('searchInput')?.value || '').trim().toLowerCase();
 
             let csvContent = "data:text/csv;charset=utf-8,";
@@ -719,8 +714,8 @@
                 const keterangan = String(row[4] || row[3] || 'Meninggalkan tab/halaman ujian');
                 const waktu      = String(row[5] || row[4] || '-');
 
-                const matchClass = !selectedClass || kelas.trim().toLowerCase() === selectedClass;
-                const matchQuery = !query || nama.toLowerCase().includes(query) || kelas.toLowerCase().includes(query);
+                const matchClass = !selectedRoom || ruang.trim().toLowerCase() === selectedRoom;
+                const matchQuery = !query || nama.toLowerCase().includes(query) || kelas.toLowerCase().includes(query) || ruang.toLowerCase().includes(query);
 
                 if (matchClass && matchQuery) {
                     const line = [
@@ -743,7 +738,7 @@
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
-            link.setAttribute("download", `data_siswa_mencurigakan_${selectedClass || 'semua'}_${new Date().toISOString().slice(0, 10)}.csv`);
+            link.setAttribute("download", `data_siswa_mencurigakan_${selectedRoom || 'semua'}_${new Date().toISOString().slice(0, 10)}.csv`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
